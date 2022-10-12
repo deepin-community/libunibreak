@@ -1,0 +1,38 @@
+Source: libunibreak
+Section: text
+Priority: optional
+Maintainer: Eugene V. Lyubimkin <jackyf@debian.org>
+Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 7.2.11), dh-autoreconf
+
+Package: libunibreak-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends}, libunibreak1 (= ${binary:Version})
+Conflicts: liblinebreak-dev, liblinebreak2-dev
+Suggests: libunibreak-doc (>= ${source:Version})
+Description: line breaking library for Unicode (development files)
+ libunibreak is an implementation of the Unicode line breaking algorithm
+ described at http://www.unicode.org/reports/tr29/tr29-21.html
+ .
+ This package contains development header files.
+
+Package: libunibreak1
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: line breaking library for Unicode (shared library)
+ libunibreak is an implementation of the Unicode line breaking algorithm
+ described at http://www.unicode.org/reports/tr29/tr29-21.html
+ .
+ This package contains shared library to dynamically link with.
+
+Package: libunibreak-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Description: line breaking library for Unicode (documentation)
+ libunibreak is an implementation of the Unicode line breaking algorithm
+ described at http://www.unicode.org/reports/tr29/tr29-21.html
+ .
+ This package contains documentation.
+

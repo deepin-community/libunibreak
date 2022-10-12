@@ -1,0 +1,229 @@
+libunibreak (1.1-2.1) UNRELEASED; urgency=medium
+
+  * update
+
+ -- Eugene V. Lyubimkin <jackyf@debian.org>  Mon, 16 May 2022 20:20:20 +0800
+
+libunibreak (1.1-2.1) unstable; urgency=medium
+
+  * Non maintainer upload by the Reproducible Builds team.
+  * No source change upload to rebuild on buildd with .buildinfo files.
+
+ -- Holger Levsen <holger@debian.org>  Fri, 01 Jan 2021 15:29:20 +0100
+
+libunibreak (1.1-2) unstable; urgency=medium
+
+  * debian/libunibreak1-dev.install:
+    - Added pkgconfig files. (Closes: #784630)
+  * debian/control:
+    - Bumped Standards-Version to 3.9.6, no changes needed.
+
+ -- Eugene V. Lyubimkin <jackyf@debian.org>  Thu, 14 May 2015 22:43:03 +0300
+
+libunibreak (1.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    - Replaced 'liblinebreak' with 'libunibreak' in long descriptions.
+      (Closes: #717282)
+    - Updated Unicode reference URLs in long descriptions.
+    - Don't depend on quilt anymore.
+  * debian/copyright:
+    - Simplified and updated copyright years.
+  * debian/patches:
+    - 010-fix-building-without-static.patch: removed, applied upstream.
+  * debian/rules:
+    - Quilt is not used anymore.
+
+ -- Eugene V. Lyubimkin <jackyf@debian.org>  Thu, 24 Oct 2013 21:56:38 +0300
+
+libunibreak (1.0-2) unstable; urgency=low
+
+  * debian/control:
+    - Added missing conflicts with liblinebreak{,2}-dev. (Closes: #710474)
+  * debian/watch:
+    - Adjusted to search for libunibreak, not for liblinebreak.
+
+ -- Eugene V. Lyubimkin <jackyf@debian.org>  Sun, 07 Jul 2013 21:42:37 +0300
+
+libunibreak (1.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/copyright:
+    - Updated.
+  * debian/{control,liblinebreak*}:
+    - Content changes and file renames due to upstream rename.
+  * debian/control:
+    - Added quilt to Build-Depends.
+    - Added dh-autoreconf to Build-Depends.
+    - Bumped Standards-Version to 3.9.4, no changes needed.
+  * debian/rules:
+    - Fixed passing build prefix to ./configure.
+    - Use quilt's dh plugin.
+    - Use dh-autoreconf's dh plugin.
+    - Rewrote using dh override targets.
+    - Added dpkg-buildflags support.
+  * debian/patches:
+    - Added 010-fix-building-without-static.patch, cherry-picked from
+      upstream.
+  * debian/*.symbols:
+    - Recreated for new upstream name.
+  * debian/README.source:
+    - Added with quilt instructions.
+  * debian/NEWS:
+    - Removed as obsolete.
+
+ -- Eugene V. Lyubimkin <jackyf@debian.org>  Sun, 19 May 2013 19:35:02 +0300
+
+liblinebreak2 (2.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/copyright:
+    - Updated copyright years.
+    - Updated Unicode page reference.
+  * debian/control:
+    - Updated Unicode page reference.
+    - Bumped Standards-Version to 3.9.2, no changes needed.
+
+ -- Eugene V. Lyubimkin <jackyf@debian.org>  Sat, 01 Oct 2011 14:06:36 +0300
+
+liblinebreak2 (2.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    - Bumped Standards-Version to 3.9.1, no changes needed.
+    - Updated package names: 'liblinebreak' -> 'liblinebreak2'.
+    - Updated links to the Unicode documentation in the long descriptions.
+    - Updated my mail address.
+    - Removed 'DM-Upload-Allowed' flag, not needed anymore.
+    - 'liblinebreak2-dev' conflicts with 'liblinebreak-dev'.
+  * debian/changelog:
+    - Changed source package name to liblinebreak2 since API is changed.
+  * debian/copyright:
+    - Updated copyright years.
+  * debian/{liblinebreak -> liblinebreak2}-dev.install:
+    - Don't install .la file.
+  * debian/{liblinebreak -> liblinebreak2}-doc.install
+    - Updated documentation path.
+  * debian/{liblinebreak -> liblinebreak2}-doc.doc-base.reference:
+    - Updated names and documentation path.
+  * debian/{liblinebreak1 -> liblinebreak2}.install:
+    - Updated for new upstream release.
+  * debian/liblinebreak1.symbols:
+    - Removed.
+  * debian/liblinbreak2.symbols:
+    - Created.
+
+ -- Eugene V. Lyubimkin <jackyf@debian.org>  Fri, 08 Apr 2011 20:56:44 +0300
+
+liblinebreak (1.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    - Bumped 'Standards-Version' to 3.8.1, no changes needed.
+    - Added 'autotools-dev' to Build-Depends for newer config.sub and
+      config.guess files.
+  * debian/rules:
+    - Copy newer config.sub and config.guess files for build stage and revert
+      them back in clean target.
+  * debian/liblinebreak1.install:
+    - Adapted to new upstream release.
+  * debian/liblinebreak1.symbols:
+    - Updated.
+
+ -- Eugene V. Lyubimkin <jackyf.devel@gmail.com>  Sun, 03 May 2009 11:00:26 +0300
+
+liblinebreak (1.0-3) unstable; urgency=low
+
+  * debian/watch:
+    - Upstream has now placed upstream tarball, so filled it up.
+
+ -- Eugene V. Lyubimkin <jackyf.devel@gmail.com>  Thu, 29 Jan 2009 20:36:15 +0200
+
+liblinebreak (1.0-2) experimental; urgency=low
+
+  * debian/liblinebreak1.symbols:
+    - Added.
+  * debian/control:
+    - Removed duplicated 'Section' line from liblinebreak1 entry.
+
+ -- Eugene V. Lyubimkin <jackyf.devel@gmail.com>  Sat, 24 Jan 2009 10:52:16 +0200
+
+liblinebreak (1.0-1) experimental; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    - Reworked, added shared library package (liblinebreak1) and documentation
+      package (liblinebreak-doc).
+    - Set DM-Upload-Allowed flag.
+  * debian/rules:
+    - Reworked according to new upstream release.
+    - Removed some unneeded cruft.
+  * debian/liblinebreak-doc.install:
+    - Added with path for documentation.
+  * debian/*.install:
+    - Reworked.
+  * debian/README.Debian:
+    - Removed as obsolete.
+  * debian/NEWS:
+    - Added with notion about static library.
+  * debian/liblinebreak-doc.doc-base.reference:
+    - Added.
+
+ -- Eugene V. Lyubimkin <jackyf.devel@gmail.com>  Sun, 11 Jan 2009 11:11:21 +0200
+
+liblinebreak (0.9.6-6) unstable; urgency=low
+
+  * debian/rules:
+    - Removed empty 'clean' and 'binary-indep', lintian became more clever.
+    - Fixed mistake leading to double-building the package.
+    - Added support for 'noopt' in DEB_BUILD_OPTIONS.
+    - Library now builds with '-D_REENTRANT' flag.
+  * debian/control:
+    - Bumped 'Standards-Version' to 3.8.0.
+  * debian/watch:
+    - Added (comments only).
+
+ -- Eugene V. Lyubimkin <jackyf.devel@gmail.com>  Sun, 13 Jul 2008 22:00:06 +0300
+
+liblinebreak (0.9.6-5) unstable; urgency=low
+
+  * New maintainer. (Closes: #483258)
+  * debian/control:
+    - Updated 'Maintainer' field.
+    - Removed 'Vcs-Git' field.
+  * debian/rules:
+    - Added 'clean' and 'binary-indep' rules to satisfy lintian.
+
+ -- Eugene V. Lyubimkin <jackyf.devel@gmail.com>  Fri, 30 May 2008 00:59:40 +0300
+
+liblinebreak (0.9.6-4) unstable; urgency=low
+
+  * Orphaned the package.
+  * debhelper v7; rules file minimisation.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 27 May 2008 19:28:39 -0400
+
+liblinebreak (0.9.6-3) unstable; urgency=low
+
+  * Build the library -fPIC so that it can be linked into libzltext.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 08 Apr 2008 19:48:56 -0400
+
+liblinebreak (0.9.6-2) unstable; urgency=low
+
+  * First upload to debian.
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 22 Mar 2008 19:21:02 -0400
+
+liblinebreak (0.9.6-1) stable; urgency=low
+
+  * New upstream version.
+
+ -- Nikolay Pultsin <geometer@fbreader.org>  Wed, 19 Mar 2008 15:52:00 +0300
+
+liblinebreak (0.9-1) stable; urgency=low
+
+  * Initial release.
+
+ -- Nikolay Pultsin <geometer@fbreader.org>  Sun, 9 Mar 2008 03:19:00 +0300

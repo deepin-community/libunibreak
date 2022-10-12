@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node5" href="$linebreak_8h.html" title="Header file for the line breaking algorithm." alt="" coords="290,166,384,197"/>
+<area shape="rect" id="node6" href="$linebreakdef_8h.html" title="Definitions of internal data structures, declarations of global variables, and function..." alt="" coords="375,86,488,117"/>
+<area shape="rect" id="node7" href="$wordbreak_8h.html" title="Header file for the word breaking (segmentation) algorithm." alt="" coords="102,86,204,117"/>
+<area shape="rect" id="node8" href="$wordbreakdata_8c.html" title="wordbreakdata.c" alt="" coords="513,86,641,117"/>
+<area shape="rect" id="node9" href="$wordbreakdef_8h.html" title="Definitions of internal data structures, declarations of global variables, and function..." alt="" coords="516,166,639,197"/>
+</map>

@@ -1,0 +1,9 @@
+Document: libunibreak-reference
+Title: libunibreak Reference Manual
+Author: Wu Yongwei
+Abstract: A C API to use Unicode line breaking algorithm
+Section: Programming/C
+
+Format: HTML
+Index: /usr/share/doc/libunibreak-doc/html/index.html
+Files: /usr/share/doc/libunibreak-doc/html/*
