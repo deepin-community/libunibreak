@@ -1,14 +1,22 @@
 Source: libunibreak
 Section: text
 Priority: optional
-Maintainer: Eugene V. Lyubimkin <jackyf@debian.org>
-Standards-Version: 3.9.6
-Build-Depends: debhelper (>= 7.2.11), dh-autoreconf
+Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Pino Toscano <pino@debian.org>,
+Standards-Version: 4.7.2
+Build-Depends: debhelper-compat (= 13)
+Build-Depends-Indep: doxygen,
+                     graphviz,
+Rules-Requires-Root: no
+Vcs-Browser: https://salsa.debian.org/qt-kde-team/3rdparty/libunibreak
+Vcs-Git: https://salsa.debian.org/qt-kde-team/3rdparty/libunibreak.git
+Homepage: https://github.com/adah1972/libunibreak
 
 Package: libunibreak-dev
 Section: libdevel
 Architecture: any
-Depends: ${misc:Depends}, libunibreak1 (= ${binary:Version})
+Multi-Arch: same
+Depends: ${misc:Depends}, libunibreak6 (= ${binary:Version})
 Conflicts: liblinebreak-dev, liblinebreak2-dev
 Suggests: libunibreak-doc (>= ${source:Version})
 Description: line breaking library for Unicode (development files)
@@ -17,8 +25,10 @@ Description: line breaking library for Unicode (development files)
  .
  This package contains development header files.
 
-Package: libunibreak1
+Package: libunibreak6
+Section: libs
 Architecture: any
+Multi-Arch: same
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: line breaking library for Unicode (shared library)
  libunibreak is an implementation of the Unicode line breaking algorithm
@@ -35,4 +45,3 @@ Description: line breaking library for Unicode (documentation)
  described at http://www.unicode.org/reports/tr29/tr29-21.html
  .
  This package contains documentation.
-
