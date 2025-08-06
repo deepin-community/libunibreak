@@ -1,0 +1,37 @@
+#!/bin/sh
+# Copyright 2022 Simon McVittie
+# SDPX-License-Identifier: Zlib
+
+set -eux
+
+srcdir=$(pwd)
+workdir=$(mktemp -d)
+trap 'rm -rf "$workdir"' 0 INT QUIT ABRT PIPE TERM
+
+if [ -n "${DEB_HOST_GNU_TYPE:-}" ]; then
+    CROSS_COMPILE="$DEB_HOST_GNU_TYPE-"
+else
+    CROSS_COMPILE=
+fi
+
+cp tools/linebreak_test.c "$workdir"
+cp tools/wordbreak_test.c "$workdir"
+cd "$workdir"
+
+for t in linebreak_test wordbreak_test; do
+    CC="${CROSS_COMPILE}gcc"
+    PKG_CONFIG="${CROSS_COMPILE}pkg-config"
+
+    "$CC" -o "$t" "${t}.c" $("${PKG_CONFIG}" --cflags --libs libunibreak)
+done
+
+fail=0
+
+./wordbreak_test "The quick brown fox jumped over the lazy dog" > wordbreaks.txt || fail=1
+diff -u "${srcdir}/debian/tests/wordbreaks.txt" wordbreaks.txt || fail=1
+
+echo "Jackdaws love my big sphinx of quartz" > input.txt
+./linebreak_test -l en input.txt > linebreaks.txt || fail=1
+diff -u "${srcdir}/debian/tests/linebreaks.txt" linebreaks.txt || fail=1
+
+exit "$fail"

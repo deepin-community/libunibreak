@@ -1,0 +1,3 @@
+Tests: build
+Depends: build-essential, libunibreak-dev, pkgconf
+Restrictions: superficial, allow-stderr

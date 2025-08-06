@@ -45,6 +45,11 @@ CLEAN :
 	-@erase "$(INTDIR)\linebreakdata.obj"
 	-@erase "$(INTDIR)\linebreakdef.obj"
 	-@erase "$(INTDIR)\wordbreak.obj"
+	-@erase "$(INTDIR)\graphemebreak.obj"
+	-@erase "$(INTDIR)\eastasianwidthdef.obj"
+	-@erase "$(INTDIR)\emojidef.obj"
+	-@erase "$(INTDIR)\unibreakbase.obj"
+	-@erase "$(INTDIR)\unibreakdef.obj"
 	-@erase "$(INTDIR)\vc*.idb"
 	-@erase "$(OUTDIR)\unibreak.lib"
 
@@ -62,7 +67,12 @@ LIB32_OBJS= \
 	"$(INTDIR)\linebreak.obj" \
 	"$(INTDIR)\linebreakdata.obj" \
 	"$(INTDIR)\linebreakdef.obj" \
-	"$(INTDIR)\wordbreak.obj"
+	"$(INTDIR)\wordbreak.obj" \
+	"$(INTDIR)\graphemebreak.obj" \
+	"$(INTDIR)\eastasianwidthdef.obj" \
+	"$(INTDIR)\emojidef.obj" \
+	"$(INTDIR)\unibreakbase.obj" \
+	"$(INTDIR)\unibreakdef.obj"
 
 "$(OUTDIR)\unibreak.lib" : "$(OUTDIR)" $(DEF_FILE) $(LIB32_OBJS)
     $(LIB32) @<<
@@ -85,6 +95,11 @@ CLEAN :
 	-@erase "$(INTDIR)\linebreakdata.obj"
 	-@erase "$(INTDIR)\linebreakdef.obj"
 	-@erase "$(INTDIR)\wordbreak.obj"
+	-@erase "$(INTDIR)\graphemebreak.obj"
+	-@erase "$(INTDIR)\eastasianwidthdef.obj"
+	-@erase "$(INTDIR)\emojidef.obj"
+	-@erase "$(INTDIR)\unibreakbase.obj"
+	-@erase "$(INTDIR)\unibreakdef.obj"
 	-@erase "$(INTDIR)\vc*.idb"
 	-@erase "$(INTDIR)\vc*.pdb"
 	-@erase "$(OUTDIR)\unibreak.lib"
@@ -92,7 +107,7 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MTd /W3 /Gm /EHsc /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /RTC1  /c 
+CPP_PROJ=/nologo /MTd /W3 /EHsc /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /RTC1  /c 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\unibreak.bsc" 
 BSC32_SBRS= \
@@ -103,7 +118,12 @@ LIB32_OBJS= \
 	"$(INTDIR)\linebreak.obj" \
 	"$(INTDIR)\linebreakdata.obj" \
 	"$(INTDIR)\linebreakdef.obj" \
-	"$(INTDIR)\wordbreak.obj"
+	"$(INTDIR)\wordbreak.obj" \
+	"$(INTDIR)\graphemebreak.obj" \
+	"$(INTDIR)\eastasianwidthdef.obj" \
+	"$(INTDIR)\emojidef.obj" \
+	"$(INTDIR)\unibreakbase.obj" \
+	"$(INTDIR)\unibreakdef.obj"
 
 "$(OUTDIR)\unibreak.lib" : "$(OUTDIR)" $(DEF_FILE) $(LIB32_OBJS)
     $(LIB32) @<<
@@ -146,21 +166,55 @@ LIB32_OBJS= \
 .\linebreak.c : \
 	".\linebreak.h"\
 	".\linebreakdef.h"\
+	".\unibreakbase.h"\
+	".\unibreakdef.h"\
 	
 .\linebreakdata.c : \
-	".\linebreak.h"\
 	".\linebreakdef.h"\
+	".\unibreakbase.h"\
+	".\unibreakdef.h"\
 	
 .\linebreakdef.c : \
 	".\linebreak.h"\
 	".\linebreakdef.h"\
+	".\unibreakbase.h"\
+	".\unibreakdef.h"\
 	
 .\wordbreak.c : \
-	".\linebreak.h"\
-	".\linebreakdef.h"\
 	".\wordbreak.h"\
 	".\wordbreakdef.h"\
 	".\wordbreakdata.c"\
+	".\emojidef.h"\
+	".\unibreakbase.h"\
+	".\unibreakdef.h"\
+	
+.\graphemebreak.c : \
+	".\graphemebreak.h"\
+	".\graphemebreakdata.c"\
+	".\indicconjunctbreakdata.c"\
+	".\indicconjunctbreakdef.h"\
+	".\emojidef.h"\
+	".\unibreakbase.h"\
+	".\unibreakdef.h"\
+	
+.\eastasianwidthdef.c : \
+	".\eastasianwidthdef.h"\
+	".\eastasianwidthdata.c"\
+	".\unibreakbase.h"\
+	".\unibreakdef.h"\
+	
+.\emojidef.c : \
+	".\emojidef.h"\
+	".\emojidata.c"\
+	".\unibreakbase.h"\
+	".\unibreakdef.h"\
+	
+.\unibreakbase.c : \
+	".\unibreakbase.h"\
+	
+.\unibreakdef.c : \
+	".\unibreakbase.h"\
+	".\unibreakdef.h"\
 	
 
 !IF "$(CFG)" == "libunibreak - Win32 Release" || "$(CFG)" == "libunibreak - Win32 Debug"
@@ -182,6 +236,31 @@ SOURCE=.\linebreakdef.c
 SOURCE=.\wordbreak.c
 
 "$(INTDIR)\wordbreak.obj" : $(SOURCE) "$(INTDIR)"
+
+
+SOURCE=.\graphemebreak.c
+
+"$(INTDIR)\graphemebreak.obj" : $(SOURCE) "$(INTDIR)"
+
+
+SOURCE=.\eastasianwidthdef.c
+
+"$(INTDIR)\eastasianwidthdef.obj" : $(SOURCE) "$(INTDIR)"
+
+
+SOURCE=.\emojidef.c
+
+"$(INTDIR)\emojidef.obj" : $(SOURCE) "$(INTDIR)"
+
+
+SOURCE=.\unibreakbase.c
+
+"$(INTDIR)\unibreakbase.obj" : $(SOURCE) "$(INTDIR)"
+
+
+SOURCE=.\unibreakdef.c
+
+"$(INTDIR)\unibreakdef.obj" : $(SOURCE) "$(INTDIR)"
 
 
 

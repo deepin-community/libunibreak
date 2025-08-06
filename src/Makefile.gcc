@@ -105,20 +105,20 @@ RELEASE_OBJS = $(patsubst %.o,$(RELEASE)/%.o,$(OBJFILES))
 DEBUG_DEPS   = $(patsubst %.o,%.dep,$(DEBUG_OBJS))
 RELEASE_DEPS = $(patsubst %.o,%.dep,$(RELEASE_OBJS))
 
-CFILES   := linebreak.c linebreakdata.c linebreakdef.c wordbreak.c
+CFILES   := linebreak.c linebreakdata.c linebreakdef.c wordbreak.c \
+            graphemebreak.c eastasianwidthdef.c emojidef.c \
+	    unibreakbase.c unibreakdef.c
 CXXFILES :=
 
 LIBS :=
 
-TARGET         = liblinebreak.a
+TARGET         = libunibreak.a
 DEBUG_TARGET   = $(patsubst %,$(DEBUG)/%,$(TARGET))
 RELEASE_TARGET = $(patsubst %,$(RELEASE)/%,$(TARGET))
 
 debug:   $(DEBUG) $(DEBUG_TARGET)
 
 release: $(RELEASE) $(RELEASE_TARGET)
-
-
 
 $(DEBUG):
 	mkdir $(DEBUG)
@@ -132,45 +132,18 @@ $(DEBUG_TARGET): $(DEBUG_DEPS) $(DEBUG_OBJS)
 $(RELEASE_TARGET): $(RELEASE_DEPS) $(RELEASE_OBJS)
 	$(AR) -r $(RELEASE_TARGET) $(RELEASE_OBJS)
 
+
+.PHONY: all debug release clean distclean doc
+
 doc:
-	doxygen
-
-linebreakdata: filter_dup$(EXEEXT) LineBreak.txt
-	sed -n -f LineBreak1.sed LineBreak.txt > tmp.txt
-	sed -f LineBreak2.sed tmp.txt | .$(PATHSEP)filter_dup > tmp.c
-	head -2 LineBreak.txt > tmp.txt
-	cat linebreakdata1.tmpl tmp.txt linebreakdata2.tmpl tmp.c linebreakdata3.tmpl > linebreakdata.c
-	$(RM) tmp.txt tmp.c
-
-wordbreakdata: WordBreakProperty.txt
-	sed -E -n 's/(^[0-9A-F.]+)/\1/p' WordBreakProperty.txt > tmp2.txt
-	sed -E -i.bak 's/^([0-9A-F]+) +/\1..\1/' tmp2.txt
-	./sort_numeric_hex.py tmp2.txt > tmp.txt
-	rm tmp2.txt tmp2.txt.bak
-	sed -E -i.bak -n 's/^([0-9A-F]+)..([0-9A-F]+) *; *([A-Za-z]+).*/'$$'\t''{0x\1, 0x\2, WBP_\3},/p' tmp.txt 
-	echo "/* The content of this file is generated from:" > wordbreakdata.c
-	head -2 WordBreakProperty.txt >> wordbreakdata.c
-	echo "*/" >> wordbreakdata.c
-	cat wordbreakdata1.tmpl tmp.txt wordbreakdata2.tmpl >> wordbreakdata.c
-	rm tmp.txt tmp.txt.bak
-
-filter_dup$(EXEEXT): filter_dup.c
-	gcc -O2 -o filter_dup$(EXEEXT) $<
-
-LineBreak.txt:
-	wget http://unicode.org/Public/UNIDATA/LineBreak.txt
-
-WordBreakProperty.txt:
-	wget http://www.unicode.org/Public/UNIDATA/auxiliary/WordBreakProperty.txt
-
-.PHONY: all debug release clean distclean doc linebreakdata wordbreakdata
+	cd .. && doxygen
 
 clean:
 	$(RM) $(DEBUG)/*.o $(DEBUG)/*.dep $(DEBUG_TARGET)
 	$(RM) $(RELEASE)/*.o $(RELEASE)/*.dep $(RELEASE_TARGET)
 
 distclean: clean
-	$(RM) $(DEBUG)/* $(RELEASE)/* filter_dup$(EXEEXT) tags LineBreak.txt
+	$(RM) $(DEBUG)/* $(RELEASE)/* tags 
 	-rmdir $(DEBUG) 2> $(DEVNUL)
 	-rmdir $(RELEASE) 2> $(DEVNUL)
 

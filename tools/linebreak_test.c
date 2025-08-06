@@ -23,10 +23,6 @@
 
 #define MAXCHARS    16384
 
-#if !defined(LINEBREAK_VERSION) || LINEBREAK_VERSION < 0x0190
-#define lb_get_next_char_utf8 get_next_char_utf8
-#endif
-
 /* Show usage */
 void usage(const char *progname)
 {
@@ -35,7 +31,7 @@ void usage(const char *progname)
             progname);
 }
 
-/* Simplistic function to output a maximum three-byte sequence. */
+/* Simplistic function to output a maximum four-byte sequence. */
 void putchar_utf8(utf32_t ch)
 {
     if (ch < 0x80)
@@ -45,27 +41,47 @@ void putchar_utf8(utf32_t ch)
         putchar(0xC0 | (ch >> 6));
         putchar(0x80 | (ch & 0x3F));
     }
-    else
+    else if (ch < 0x10000)
     {
         putchar(0xE0 | (ch >> 12));
         putchar(0x80 | ((ch >> 6) & 0x3F));
         putchar(0x80 | (ch & 0x3F));
     }
+    else
+    {
+        putchar(0xF0 | (ch >> 18));
+        putchar(0x80 | ((ch >> 12) & 0x3F));
+        putchar(0x80 | ((ch >> 6) & 0x3F));
+        putchar(0x80 | (ch & 0x3F));
+    }
 }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wincompatible-pointer-types"
 
 /* Output a UTF-8 character via libiconv */
 void putchar_iconv(iconv_t ic, const char* buf, size_t count)
 {
     char outbuf[5];
-    const char *inp;
+    char *inp;
     char *outp;
     size_t i;
     size_t bytes;
 
-    inp = buf;
+    /* Alas, most of the platforms I test now do not have const in the
+     * second parameter of the iconv function.  I never understand why
+     * someone chose to REMOVE the const in POSIX 2004 (so the standard
+     * encourages const-incorrect code).  The decision looked really
+     * foolish to me.  Anyway, it makes the cast necessary.  A big pain
+     * is that this cast problem makes the current code cause a warning
+     * when a platform declares a semantically correct iconv function,
+     * as char** cannot be converted to const char** implicitly, or vice
+     * versa.  An explanation is here:
+     *
+     *  http://mail-index.netbsd.org/tech-userlevel/2004/07/28/0006.html
+     *
+     * A useful trick for C++ (only) is here:
+     *
+     *  http://stackoverflow.com/questions/11421439/how-can-i-portably-call-a-c-function-that-takes-a-char-on-some-platforms-and
+     */
+    inp = (char*)buf;
     outp = outbuf;
     i = sizeof outbuf;
     if (iconv(ic, &inp, &count, &outp, &i) != (size_t)-1)
@@ -83,29 +99,33 @@ void putchar_iconv(iconv_t ic, const char* buf, size_t count)
     }
 }
 
-#pragma clang diagnostic pop
+/* Get the byte length of a UTF-8 sequence */
+size_t get_utf8_char_len(char lead)
+{
+    unsigned char ch = (unsigned char)lead;
+    if (ch < 0xC2 || ch > 0xF4) {
+        /* One-byte sequence, tail (should not occur), or invalid */
+        return 1;
+    } else if (ch < 0xE0) {
+        /* Two-byte sequence */
+        return 2;
+    } else if (ch < 0xF0) {
+        /* Three-byte sequence */
+        return 3;
+    } else {
+        /* Four-byte sequence */
+        return 4;
+    }
+}
 
 /* Output a UTF-8 string via libiconv */
 void puts_iconv(const char *s, iconv_t ic)
 {
     unsigned char ch;
-    while ( (ch = (unsigned char)*s))
-    {
-        if (ch < 0xC0)
-        {
-            putchar_iconv(ic, s, 1);
-            s += 1;
-        }
-        else if (ch < 0xE0)
-        {
-            putchar_iconv(ic, s, 2);
-            s += 2;
-        }
-        else
-        {
-            putchar_iconv(ic, s, 3);
-            s += 3;
-        }
+    while ( (ch = (unsigned char)*s)) {
+        size_t char_len = get_utf8_char_len(ch);
+        putchar_iconv(ic, s, char_len);
+        s += char_len;
     }
 }
 
@@ -177,7 +197,7 @@ int main(int argc, char *argv[])
     for (i = 0;;)
     {
         j = i;
-        ch = lb_get_next_char_utf8(buffer, count, &i);
+        ch = ub_get_next_char_utf8(buffer, count, &i);
         if (ch == EOS)
             break;
         if (ic != (iconv_t)-1)

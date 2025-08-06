@@ -1,3 +1,60 @@
+New in libunibreak 6.1
+
+- Optimize the size of Unicode data
+- Refactor the Unicode data generation scripts
+- Make minor adjustments and fixes
+
+New in libunibreak 6.0
+
+- Add East Asian Width support and improve line breaking algorithm
+- Add Indic Conjunct Break support and improve grapheme breaking algorithm
+- Update the data (except line breaking) to conform to Unicode 15.1
+- Include test data files in the project
+- Make minor code adjustment and refactoring
+
+New in libunibreak 5.1
+
+- Speed up line-break property lookup
+- Update the data to conform to Unicode 15
+
+New in libunibreak 5.0
+
+- Update the data to conform to Unicode 14
+- Add per_code_point variants of utf8 and utf16 functions
+- Do not always break after the last character
+- Clean up code and test
+
+New in libunibreak 4.3
+
+- Update the data to conform to Unicode 13
+- Change the handling of ellipses as per UAX #14-45
+- Fix the handling of leading spaces
+
+New in libunibreak 4.2
+
+- Update the data to conform to Unicode 12
+
+New in libunibreak 4.1
+
+- Update the code and data to conform to Unicode 11.0.0, especially
+  adding support for extended pictographs in word and grapheme breaking
+- ZWJ support has been much improved (it was broken)
+- Make minor tweaks to the project files
+
+New in libunibreak 4.0
+
+- Update the code and data to conform to Unicode 9.0.0
+- Add grapheme breaking support
+- Tested and enhanced according to the Unicode test suite
+- Make bug fixes
+
+New in libunibreak 3.0
+
+- Update the code and data to conform to Unicode 7.0.0
+- Update build scripts to fix compatibility issues
+- Improve code structure
+- Make a few bug fixes
+
 New in libunibreak 1.1
 
 - Update the code and data to conform to Unicode 6.2.0
@@ -8,7 +65,8 @@ New in libunibreak 1.1
 New in libunibreak 1.0
 
 - Add word breaking support
-- Change the library name to "libunibreak", while keeping maximum compatibility
+- Change the library name to "libunibreak", while keeping maximum
+  compatibility
 - Add pkg-config support
 
 New in liblinebreak 2.1

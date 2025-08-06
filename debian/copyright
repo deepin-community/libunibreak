@@ -1,41 +1,40 @@
-Sources were downloaded from:
-
-    http://downloads.sourceforge.net/vimgadgets
-
-Authors:
-    Wu Yongwei, Nikolay Pultsin, Thomas Klausner, Tom Hacohen.
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: libunibreak
+Source: https://github.com/adah1972/libunibreak
 
 Files: *
-Copyright: (C) 2008-2012 Wu Yongwei <wuyongwei at gmail dot com>
-Copyright: (C) 2012-2013 Tom Hacohen <tom@stosb.com>
-License: other
- /*
-  * This software is provided 'as-is', without any express or implied
-  * warranty.  In no event will the author be held liable for any damages
-  * arising from the use of this software.
-  *
-  * Permission is granted to anyone to use this software for any purpose,
-  * including commercial applications, and to alter it and redistribute
-  * it freely, subject to the following restrictions:
-  *
-  * 1. The origin of this software must not be misrepresented; you must
-  *    not claim that you wrote the original software.  If you use this
-  *    software in a product, an acknowledgement in the product
-  *    documentation would be appreciated but is not required.
-  * 2. Altered source versions must be plainly marked as such, and must
-  *    not be misrepresented as being the original software.
-  * 3. This notice may not be removed or altered from any source
-  *    distribution.
-  *
-  * [...]
-  *
-  * The Unicode Terms of Use are available at
-  *		<URL:http://www.unicode.org/copyright.html>
-  */
+Copyright: 2008-2022, 2024, Wu Yongwei <wuyongwei at gmail dot com>
+           2013, Petr Filipsky <philodej at gmail dot com>
+           2013-2019, Tom Hacohen <tom at stosb dot com>
+           2016-2019, Andreas Röver <roever at users dot sf dot net>
+License: Zlib
 
-Files: linebreakdata.c, wordbreakdata.c
-Copyright: (c) 1991-2013 Unicode, Inc.
-License: other
+Files: src/emojidata.c
+       src/graphemebreakdata.c
+       src/linebreakdata.c
+       src/wordbreakdata.c
+Copyright: 1991-2013, Unicode, Inc.
+License: unicode-data
+
+License: Zlib
+ This software is provided 'as-is', without any express or implied
+ warranty.  In no event will the author be held liable for any damages
+ arising from the use of this software.
+ .
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute
+ it freely, subject to the following restrictions:
+ .
+ 1. The origin of this software must not be misrepresented; you must
+    not claim that you wrote the original software.  If you use this
+    software in a product, an acknowledgement in the product
+    documentation would be appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must
+    not be misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source
+    distribution.
+
+License: unicode-data
  http://www.unicode.org/terms_of_use.html
  .
  EXHIBIT 1
